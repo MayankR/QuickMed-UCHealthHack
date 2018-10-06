@@ -1,5 +1,7 @@
 package edu.uchealth.healthhack.nowaithospital;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,23 @@ public class MCQQuestion extends Question {
         }
     }
 
+    public List<String> getAnswers() {
+        return answers;
+    }
+
     public List<Question> getNextQuestions(int ansNum) {
-        return nextQuestions.get(ansNum);
+        List<Question> nextStuff = nextQuestions.get(ansNum);
+        Log.d("MCQQuestions", nextStuff.size() + " more questions");
+        return nextStuff;
+    }
+
+    // TODO
+    int getOptionFromResponse(String response) {
+        return 0;
+    }
+
+    public List<Question> getNextQuestions(String response) {
+        int keywordsIndex = getOptionFromResponse(response);
+        return getNextQuestions(keywordsIndex);
     }
 }

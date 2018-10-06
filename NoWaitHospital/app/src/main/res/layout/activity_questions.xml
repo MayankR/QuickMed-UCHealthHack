@@ -70,6 +70,7 @@
             android:id="@+id/next_fab"
             android:layout_width="55dp"
             android:layout_height="55dp"
+            android:src="@drawable/right_arrow"
             app:elevation="0dp"/>
 
     </FrameLayout>
