@@ -5,9 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.uchealth.healthhack.nowaithospital.QuestionsActivity"
+    android:fitsSystemWindows="true"
     android:background="#289473">
+    <RelativeLayout
+        android:id="@+id/question_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
 
     <TextView
+        android:id="@+id/question_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
@@ -17,6 +24,16 @@
         android:textColor="#ffffff"
         android:textStyle="bold"
         android:text="How are you feeling right now?"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/answer_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/question_rl"
+        android:orientation="vertical">
+
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -39,5 +56,39 @@
             android:elevation="16dp"
             android:textColor="@android:color/white"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="35dp"
+        android:layout_alignParentRight="true">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/next_fab"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            app:elevation="0dp"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginRight="35dp"
+        android:layout_centerHorizontal="true">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/speech_fab"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/microphone"
+            android:padding="25dp"
+            app:elevation="1dp"/>
+
     </FrameLayout>
 </RelativeLayout>

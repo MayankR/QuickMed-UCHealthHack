@@ -18,6 +18,9 @@ public class Question {
         this.questionStr = q;
     }
 
+    public String getQuestion() {
+        return questionStr;
+    }
 
     public void addChildQuestion(int ansNum, Question q) {
         nextQuestions.get(ansNum).add(q);
