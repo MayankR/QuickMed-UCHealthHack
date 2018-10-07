@@ -16,10 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".QuestionsActivity"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
+        <activity
+            android:name=".QuestionsActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".DoneQuestionsActivity" />
+        <activity android:name=".UserDataActivity"></activity>
     </application>
 
 </manifest>

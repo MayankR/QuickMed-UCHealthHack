@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.uchealth.healthhack.nowaithospital.UserDataActivity"
+    android:background="#289473"
+    android:paddingLeft="35dp"
+    android:paddingRight="35dp">
+
+    <TextView
+        android:id="@+id/question_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="25dp"
+        android:textSize="50dp"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:text="Hey!"/>
+
+    <TextView
+        android:id="@+id/name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:layout_below="@+id/question_tv"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="#ffffff"/>
+
+    <EditText
+        android:id="@+id/name_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your name goes here"
+        android:layout_below="@+id/name_tv"
+        android:textSize="30dp"
+        android:textColorHint="#7bffd7"
+        android:textColor="#ffffff"/>
+
+    <TextView
+        android:id="@+id/age_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Age"
+        android:layout_below="@+id/name_et"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#ffffff"/>
+
+    <EditText
+        android:id="@+id/age_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your age"
+        android:inputType="number"
+        android:layout_below="@+id/age_tv"
+        android:textSize="30dp"
+        android:textColorHint="#7bffd7"
+        android:textColor="#ffffff"/>
+
+    <TextView
+        android:id="@+id/gender_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gender"
+        android:layout_below="@+id/age_et"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="#ffffff"/>
+
+    <RadioGroup
+        android:id="@+id/gender_rg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/gender_tv"
+        >
+        <RadioButton android:id="@+id/radio_m"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textSize="30dp"
+            android:buttonTint="#ffffff"
+            android:text="Male"/>
+        <RadioButton android:id="@+id/radio_f"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:buttonTint="#ffffff"
+            android:textSize="30dp"
+            android:text="Female"/>
+        <RadioButton android:id="@+id/radio_o"
+            android:layout_width="wrap_content"
+            android:textSize="30dp"
+            android:textColor="#ffffff"
+            android:buttonTint="#ffffff"
+            android:layout_height="wrap_content"
+            android:text="Other"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/done_button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="DONE"
+        android:background="#ffffff"
+        android:textColor="#289473"
+        android:textSize="20dp"/>
+</RelativeLayout>
