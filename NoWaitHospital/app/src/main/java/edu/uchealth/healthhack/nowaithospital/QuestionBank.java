@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.*;
 
+import static edu.uchealth.healthhack.nowaithospital.keyWordsDetection.isBodyPart;
+import static edu.uchealth.healthhack.nowaithospital.keyWordsDetection.isInjury;
+import static edu.uchealth.healthhack.nowaithospital.keyWordsDetection.isNonInjury;
+
 /**
  * Created by mayank on 06/10/18.
  */
@@ -14,13 +18,13 @@ public class QuestionBank {
     public QuestionBank() {
 
         // Main Question
-        List<String> keyInjury = Arrays.asList("cut", "shot", "blood", "bleeding", "wound", "lacerat", "dislocat", "amput", "injury");
+        List<String> keyInjury = Arrays.asList("cut", "shot", "blood", "bleeding", "wound", "laceration", "lacerated", "dislocation", "dislocated", "amputated", "injury");
         List<String> keyNonInjury = Arrays.asList("sick", "infection", "discomfort", "breathing", "dizzy", "nausea", "clammy", "fever");
         List<String> bodyParts = Arrays.asList("head", "face", "eye", "nose", "ear", "temple", "neck", "chest", "back", "arm", "hand",
                 "finger", "thumb", "wrist", "elbow", "bone", "hip", "knee", "leg", "toe", "feet", "foot");
         List<String> keyPregnant = Arrays.asList("pregnant", "water broke");
 
-        rootQuestion = new TextQuestion("How can I help you?", keyInjury, keyNonInjury, bodyParts, keyPregnant);
+//        rootQuestion = new TextQuestion("How can I help you?", keyInjury, keyNonInjury, bodyParts, keyPregnant);
 
         // -----------------------------------------------------------------------------------------------------------------
         // Check if it breaks for the case when these key words are part of some bigger words, which don't mean anything
@@ -143,6 +147,26 @@ public class QuestionBank {
         // ---------------------------------------------------------------------
         // Ready to construct the tree
         // ---------------------------------------------------------------------
+
+        rootQuestion = new TextQuestion("How can I help you?", keyInjury, keyNonInjury, bodyParts, keyPregnant, bodypart, nonICategory, category, photograph);
+
+//        if(isInjury && !isNonInjury){
+//            if(!isBodyPart){
+//                rootQuestion.addChildQuestion(0, bodypart);
+//            }
+//        }
+//        else if (!isInjury && isNonInjury){
+//            if(!isBodyPart){
+//                rootQuestion.addChildQuestion(0, nonICategory);
+//            }
+//        }
+//        else{
+//            isInjury = Boolean.FALSE;
+//            isNonInjury = Boolean.FALSE;
+//
+//            rootQuestion.addChildQuestion(0, category);
+//
+//        }
         rootQuestion.addChildQuestion(0, category);
 
         category.addChildQuestion(0, iCategory);
