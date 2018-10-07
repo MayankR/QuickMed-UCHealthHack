@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
 
 /**
  * Created by mayank on 06/10/18.
@@ -11,6 +12,7 @@ import java.util.List;
 
 public class MCQQuestion extends Question {
     List<String> answers;
+    Map<String, String> qmap;
 
     public MCQQuestion(String q, List<String> ans) {
         this.questionStr = q;
@@ -37,6 +39,8 @@ public class MCQQuestion extends Question {
     int getOptionFromResponse(String response) {
         return 0;
     }
+
+
 
     public List<Question> getNextQuestions(String response) {
         int keywordsIndex = getOptionFromResponse(response);
