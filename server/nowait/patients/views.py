@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Hospitals
+from .models import Hospitals, Patients
 from django.shortcuts import redirect
+import timeago, datetime
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -39,7 +41,20 @@ def hospital_patients(request):
 
 	hospital = Hospitals.objects.get(hospital_id=request.COOKIES.get('hospital_id', ''))
 
-	context = {"static_url_m": "/static/", "hospital_name": hospital.name}
+	patients = Patients.objects.filter(hospital=hospital)
+	time_ago = []
+	for patient in patients:
+		now = datetime.datetime.now()# - datetime.timedelta(hours = 7)
+		print(patient.name)
+		print(now.strftime("%Y-%m-%d %H:%M"))
+		added_date_time = datetime.datetime( patient.time_added.year,patient.time_added.month, patient.time_added.day, patient.time_added.hour,  patient.time_added.minute,  patient.time_added.second)
+		print(added_date_time)
+		
+		time_ago.append(timeago.format(added_date_time, now))
+
+	print(time_ago)
+	context = {"static_url_m": "/static/", "hospital_name": hospital.name,
+			"patients": patients, "time_ago": time_ago}
 	template_name = "patient_list.html"
 	return render(request, template_name, context)
 
@@ -49,3 +64,16 @@ def hospital_logout(request):
 	response.delete_cookie("hospital_id")
 
 	return response
+
+def add_patient_data(request):
+	name = request.POST.get("name", "")
+	age = request.POST.get("age", "")
+	gender = request.POST.get("gender", "")
+	problem = request.POST.get("problem", "")
+
+	return JsonResponse({'patient_id':'22'})
+
+
+
+
+
