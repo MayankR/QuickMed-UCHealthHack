@@ -8,12 +8,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -130,8 +134,57 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.setMargins(px35, px20, px35, 0);
             answerLL.removeAllViews();
-            answerLL.addView(child, layoutParams);
             answerET = (EditText)child;
+            answerET.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            answerET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                    switch (actionId) {
+
+                        case EditorInfo.IME_ACTION_DONE:
+                            Toast.makeText(getApplicationContext(), "yo", Toast.LENGTH_SHORT).show();
+                            return true;
+
+                        default:
+                            return false;
+                    }
+                }
+            });
+            answerET.addTextChangedListener(new TextWatcher() {
+                CharSequence cs;
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    cs = charSequence;
+                }
+
+                boolean _ignore = false;
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    if (_ignore) {
+                        _ignore = false;
+                        return;
+                    }
+
+                    if(cs.length() > 0) {
+                        if (cs.charAt(cs.length() - 1) == '\n') {
+                            _ignore = true;
+                            answerET.setText(answerET.getText().toString().substring(0, answerET.getText().toString().length() - 1));
+                            answerET.setSelection(answerET.getText().length());
+                        }
+                    }
+
+
+
+                }
+            });
+            answerLL.addView(answerET, layoutParams);
+
             nextFAB.setVisibility(View.VISIBLE);
         }
         speakOutQuestion();
