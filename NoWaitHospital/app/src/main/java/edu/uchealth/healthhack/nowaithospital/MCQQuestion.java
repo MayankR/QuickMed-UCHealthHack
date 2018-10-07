@@ -34,6 +34,7 @@ public class MCQQuestion extends Question {
     }
 
     public List<Question> getNextQuestions(int ansNum) {
+        pData.put(questionStr, answers.get(ansNum));
         List<Question> nextStuff = nextQuestions.get(ansNum);
         Log.d("MCQQuestions", nextStuff.size() + " more questions");
         return nextStuff;
@@ -62,8 +63,9 @@ public class MCQQuestion extends Question {
 
     public List<Question> getNextQuestions(String response) {
 
-        pData.put(questionStr, response);
         int keywordsIndex = getOptionFromResponse(response);
+
+        pData.put(questionStr, answers.get(keywordsIndex));
         return getNextQuestions(keywordsIndex);
     }
 }

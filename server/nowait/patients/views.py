@@ -71,12 +71,16 @@ def add_patient_data(request):
 	name = request.POST.get("name", "")
 	age = request.POST.get("age", "")
 	gender = request.POST.get("gender", "")
+	img1 = request.POST.get("img1", "")
+	img2 = request.POST.get("img2", "")
 	problem = request.POST.get("problem", "-")
 	hospital_id = request.POST.get("hospital_id", "1")
 	print("got data")
+	print(img1[:30])
+	print(img2[:30])
 
 	hospital = Hospitals.objects.get(hospital_id=hospital_id)
-	p = Patients(name=name, age=age, gender=gender, whats_wrong=problem, hospital=hospital)
+	p = Patients(name=name, age=age, gender=gender, whats_wrong=problem, hospital=hospital,img1=img1,img2=img2)
 	p.save()
 
 	for k in request.POST:

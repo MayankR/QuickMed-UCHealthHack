@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        clearStuff();
         Utility.setupDB(this);
 
         proceedButton = (Button) findViewById(R.id.proceed_button);
@@ -38,6 +40,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             goToSignUp();
         }
         displayPatients();
+    }
+
+    void clearStuff() {
+        PatientData.name = "";
+        PatientData.age = "";
+        PatientData.gender = "";
+        PatientData.mainProblem = "";
+        PatientData.imageb64 = "";
+        PatientData.imageb64_2 = "";
+        PatientData.pData.clear();
+
+        keyWordsDetection.isInjury = Boolean.FALSE;
+        keyWordsDetection.isNonInjury = Boolean.FALSE;
+        keyWordsDetection.isBodyPart = Boolean.FALSE;
+        keyWordsDetection.bodyParts = new ArrayList<>();
     }
 
     void displayPatients() {

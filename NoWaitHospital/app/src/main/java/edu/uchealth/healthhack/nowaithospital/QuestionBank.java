@@ -18,7 +18,7 @@ public class QuestionBank {
     public QuestionBank() {
 
         // Main Question
-        List<String> keyInjury = Arrays.asList("cut", "shot", "blood", "bleeding", "wound", "laceration", "lacerated", "dislocation", "dislocated", "amputated", "injury");
+        List<String> keyInjury = Arrays.asList("cut", "shot", "blood", "bleeding", "wound", "laceration", "lacerated", "dislocation", "dislocated", "amputated", "injury", "bruised");
         List<String> keyNonInjury = Arrays.asList("sick", "infection", "discomfort", "breathing", "dizzy", "nausea", "clammy", "fever");
         List<String> bodyParts = Arrays.asList("head", "face", "eye", "nose", "ear", "temple", "neck", "chest", "back", "arm", "hand",
                 "finger", "thumb", "wrist", "elbow", "bone", "hip", "knee", "leg", "toe", "feet", "foot");
@@ -67,7 +67,7 @@ public class QuestionBank {
         // Photograph
         // --------------------------
         List<String> picCategory = Arrays.asList("Click picture", "Upload from device", "Click more pictures...");
-        Question photograph = new MCQQuestion("Please share a pic of your injury?", picCategory);
+        Question photograph = new MCQQuestion("Please share a pic of your injury.", picCategory);
 
 
 

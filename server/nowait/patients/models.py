@@ -21,6 +21,8 @@ class Patients(models.Model):
 	whats_wrong = models.CharField(max_length=200)
 	hospital = models.ForeignKey(Hospitals,on_delete=models.CASCADE)
 	time_added = models.DateTimeField(auto_now=True)
+	img1 = models.CharField(max_length=100000)
+	img2 = models.CharField(max_length=100000)
 
 	def __str__ (self):
 		return self.name

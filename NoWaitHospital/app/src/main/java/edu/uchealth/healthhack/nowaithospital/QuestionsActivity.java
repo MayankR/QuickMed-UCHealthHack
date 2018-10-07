@@ -2,6 +2,8 @@ package edu.uchealth.healthhack.nowaithospital;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -15,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -24,13 +27,16 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -105,6 +111,11 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
                     35,
                     r.getDisplayMetrics()
             );
+            int px65 = (int) TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    65,
+                    r.getDisplayMetrics()
+            );
             int px10 = (int) TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP,
                     10,
@@ -112,26 +123,40 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
             );
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(px35, px10, px35, 0);
+
 
             answerLL.removeAllViews();
-            for(int i=0;i<answersList.size();i++) {
-                final int optionID = i;
-                TextView child = (TextView) getLayoutInflater().inflate(R.layout.answer_option, null);
-                child.setText(answersList.get(i));
+            if(curQuestion.getQuestion().equals("Please share a pic of your injury.")) {
+                layoutParams.setMargins(px65, px10, px65, 0);
+                ImageView child = (ImageView) getLayoutInflater().inflate(R.layout.click_pic_img, null);
                 child.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(curQuestionIndex == allAns.size()-1) {
-                            allAns.set(allAns.size()-1, "" + optionID);
-                        } else {
-                            allAns.add("" + optionID);
-                        }
-                        clickedOption(optionID);
+                        clickPic();
                     }
                 });
                 answerLL.addView(child, layoutParams);
+            } else {
+                layoutParams.setMargins(px35, px10, px35, 0);
+                for(int i=0;i<answersList.size();i++) {
+                    final int optionID = i;
+                    TextView child = (TextView) getLayoutInflater().inflate(R.layout.answer_option, null);
+                    child.setText(answersList.get(i));
+                    child.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if(curQuestionIndex == allAns.size()-1) {
+                                allAns.set(allAns.size()-1, "" + optionID);
+                            } else {
+                                allAns.add("" + optionID);
+                            }
+                            clickedOption(optionID);
+                        }
+                    });
+                    answerLL.addView(child, layoutParams);
+                }
             }
+
 
             answerET = null;
             nextFAB.setVisibility(View.GONE);
@@ -209,6 +234,11 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
             nextFAB.setVisibility(View.VISIBLE);
         }
         speakOutQuestion();
+    }
+
+    public void clickPic() {
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, Utility.CAMERA_REQUEST);
     }
 
     private void dispatchTakePictureIntent() {
@@ -370,6 +400,24 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
 
                 Toast.makeText(this, mAnswer, Toast.LENGTH_SHORT).show();
                 registerResponse(mAnswer);
+            }
+        } else if(requestCode == Utility.CAMERA_REQUEST) {
+            try {
+//                final Uri imageUri = data.getData();
+//                InputStream imageStream = getContentResolver().openInputStream(imageUri);
+//                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                Bundle extras = data.getExtras();
+                Bitmap selectedImage = (Bitmap) extras.get("data");
+
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                selectedImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                byte[] byteArray = byteArrayOutputStream .toByteArray();
+
+                String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                PatientData.imageb64 = encoded;
+                goToNextQuestion();
+            } catch(Exception e) {
+                e.printStackTrace();
             }
         }
     }

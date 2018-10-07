@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.uchealth.healthhack.nowaithospital.HospitalSelectionActivity"
-    android:background="#289473">
+    android:background="#289473"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/question_tv"
@@ -18,5 +19,35 @@
         android:textColor="#ffffff"
         android:textStyle="bold"
         android:text="Select Hospital"/>
+
+
+
+    <TextView
+        android:id="@+id/h1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="31dp"
+        android:textSize="30dp"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:paddingLeft="2dp"
+        android:background="#2ea782"
+        android:text="UC San Diego Health"/>
+
+    <TextView
+        android:id="@+id/h2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="31dp"
+        android:textSize="30dp"
+        android:background="#2ea782"
+        android:paddingLeft="2dp"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:text="Sharp Memorial Hospital"/>
 
 </LinearLayout>

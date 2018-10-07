@@ -29,6 +29,7 @@ public class Utility {
     public static final String DATABASE_NAME = "PatientData.db";
     static SQLiteDatabase db;
     private final static OkHttpClient client = new OkHttpClient();
+    public static final int CAMERA_REQUEST = 21;
 
     public static void setupDB(Context ctx) {
         // TODO Auto-generated method stub
@@ -65,19 +66,23 @@ public class Utility {
         return patients;
     }
 
-    public static void uploadUserData() {
+    public static void uploadUserData(int hid) {
 
          MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("name", PatientData.name)
                 .addFormDataPart("age", PatientData.age)
                 .addFormDataPart("gender", PatientData.gender)
-                .addFormDataPart("problem", PatientData.mainProblem);
+                 .addFormDataPart("problem", PatientData.mainProblem)
+                 .addFormDataPart("img1", PatientData.imageb64)
+                 .addFormDataPart("img2", PatientData.imageb64_2)
+                 .addFormDataPart("hospital_id", hid + "");
 
 //        PatientData.pData.put("Breath", "Heavy");
         Iterator it = PatientData.pData.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
+            Log.d("Utility", "Adding: " + pair.getKey().toString() + ": " + pair.getValue().toString());
             builder.addFormDataPart("key_" + pair.getKey().toString(), pair.getValue().toString());
             it.remove(); // avoids a ConcurrentModificationException
         }

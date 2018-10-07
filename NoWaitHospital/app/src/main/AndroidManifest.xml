@@ -30,7 +30,8 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".DoneQuestionsActivity" />
         <activity android:name=".UserDataActivity" />
-        <activity android:name=".HospitalSelectionActivity"></activity>
+        <activity android:name=".HospitalSelectionActivity" />
+        <activity android:name=".AllDoneActivity"></activity>
     </application>
 
 </manifest>

@@ -14,6 +14,8 @@ public class PatientData {
     static String age = "";
     static String gender = "";
     static String mainProblem = "";
+    static String imageb64 = "";
+    static String imageb64_2 = "";
 
     static Map<String, String> pData = new HashMap<>();
 }

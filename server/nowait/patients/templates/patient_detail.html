@@ -95,6 +95,16 @@
                 <h5>: {{pd.value}}</h5>
               </div>
             {% endfor %}
+            <div class="col-lg-6 col-md-6 mb-2">
+              {% if patient.img1 != "" %}
+              <img class="card-img-top" src="data:image/png;base64, {{patient.img1}}" height="200px" alt="No Image">
+              {% endif %}
+            </div>
+            <div class="col-lg-6 col-md-6 mb-2">
+              {% if patient.img2 != "" %}
+              <img class="card-img-top" src="data:image/png;base64, {{patient.img2}}" height="200px" alt="No Image">
+              {% endif %}
+            </div>
           </div>
           <!-- /.row -->
 
