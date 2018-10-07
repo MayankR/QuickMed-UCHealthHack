@@ -49,11 +49,11 @@
 
         <div class="col-lg-3">
 
-          <h1 class="my-4">{{hospital_name}}</h1>
+          <h1 class="my-4"><a href="/hospital/patients">{{hospital_name}}</a></h1>
           <div class="list-group">
-            <a href="#" class="list-group-item">Incoming patients</a>
-            <a href="#" class="list-group-item">Current patients</a>
-            <a href="#" class="list-group-item">Past patients</a>
+            <a href="#" class="list-group-item">Patients</a>
+            <!-- <a href="#" class="list-group-item">Current patients</a>
+            <a href="#" class="list-group-item">Past patients</a> -->
           </div>
 
         </div>
@@ -66,30 +66,35 @@
 
           <div class="row">
 
-            {% for patient in patients %}
-              <div class="col-lg-4 col-md-6 mb-4">
+              <div class="col-lg-6 col-md-6 mb-4">
                 <div class="card h-100">
-                  <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                  <!-- <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a> -->
                   <div class="card-body">
                     <h4 class="card-title">
-                      <a href="#">{{ patient.name }}</a>
+                      <a href="/hospital/patientdata/{{patient.patient_id}}">{{ patient.name }}</a>
                     </h4>
                     <h5>{{patient.gender}}, {{patient.age}} years</h5>
                     <p class="card-text">{{patient.whats_wrong}}</p>
                   </div>
                   <div class="card-footer">
                     <small class="text-muted">
-                    {% for t_ago in time_ago %}
-                      {% if forloop.counter == forloop.parentloop.counter %}
                           {{ t_ago }}
-                      {% endif %}
-                    {% endfor %}
                   </small>
                   </div>
                 </div>
               </div>
-            {% endfor %}
 
+
+          </div>
+          <div class="row">
+            {% for pd in pdata %}
+              <div class="col-lg-3 col-md-5 mb-2">
+                <h5>{{pd.key}}</h5>
+              </div>
+              <div class="col-lg-9 col-md-7 mb-2">
+                <h5>: {{pd.value}}</h5>
+              </div>
+            {% endfor %}
           </div>
           <!-- /.row -->
 

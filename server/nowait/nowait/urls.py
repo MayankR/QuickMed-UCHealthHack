@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from patients.views import index, hospital_login, hospital_patients
 from patients.views import hospital_logout, add_patient_data
+from patients.views import view_patient_data
 
 urlpatterns = [
 	path('', index, name='index'),
@@ -24,6 +25,7 @@ urlpatterns = [
     path('hospital/logout', hospital_logout, name='index'),
     path('hospital/patients', hospital_patients, name='index'),
     path('addPatientData', add_patient_data, name='index'),
+    path('hospital/patientdata/<int:pid>', view_patient_data, name='index'),
 
     path('admin/', admin.site.urls),
 ]

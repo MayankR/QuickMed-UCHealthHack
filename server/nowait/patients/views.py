@@ -45,7 +45,7 @@ def hospital_patients(request):
 	patients = Patients.objects.filter(hospital=hospital)
 	time_ago = []
 	for patient in patients:
-		now = datetime.datetime.now()# - datetime.timedelta(hours = 7)
+		now = datetime.datetime.now()
 		print(patient.name)
 		print(now.strftime("%Y-%m-%d %H:%M"))
 		added_date_time = datetime.datetime( patient.time_added.year,patient.time_added.month, patient.time_added.day, patient.time_added.hour,  patient.time_added.minute,  patient.time_added.second)
@@ -86,6 +86,37 @@ def add_patient_data(request):
 			pd.save()
 
 	return JsonResponse({'patient_id':'22'})
+
+def view_patient_data(request, pid):
+	p = Patients.objects.get(patient_id=pid)
+	pdata = PatientData.objects.filter(patient_id=p)
+
+	now = datetime.datetime.now()
+	added_date_time = datetime.datetime( p.time_added.year,p.time_added.month, p.time_added.day, p.time_added.hour,  p.time_added.minute,  p.time_added.second)	
+	t_ago_str = timeago.format(added_date_time, now)
+
+	context = {"static_url_m": "/static/", "hospital_name": p.hospital.name,
+		"patient": p, "pdata": pdata, "t_ago": t_ago_str}
+	template_name = "patient_detail.html"
+	return render(request, template_name, context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
