@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Hospitals, Patients
+from .models import Hospitals, Patients, PatientData
 from django.shortcuts import redirect
 import timeago, datetime
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -65,11 +66,24 @@ def hospital_logout(request):
 
 	return response
 
+@csrf_exempt
 def add_patient_data(request):
 	name = request.POST.get("name", "")
 	age = request.POST.get("age", "")
 	gender = request.POST.get("gender", "")
-	problem = request.POST.get("problem", "")
+	problem = request.POST.get("problem", "-")
+	hospital_id = request.POST.get("hospital_id", "1")
+	print("got data")
+
+	hospital = Hospitals.objects.get(hospital_id=hospital_id)
+	p = Patients(name=name, age=age, gender=gender, whats_wrong=problem, hospital=hospital)
+	p.save()
+
+	for k in request.POST:
+		if k[:4] == "key_":
+			v = request.POST[k]
+			pd = PatientData(patient_id=p, key=k[4:], value=v)
+			pd.save()
 
 	return JsonResponse({'patient_id':'22'})
 

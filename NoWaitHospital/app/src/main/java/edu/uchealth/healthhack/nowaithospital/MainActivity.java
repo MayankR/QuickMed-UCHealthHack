@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         PatientData.name = patients.get(id).get(0);
         PatientData.age = patients.get(id).get(1);
         PatientData.gender = patients.get(id).get(2);
+//        Utility.uploadUserData();
         startActivity(it);
         finish();
     }

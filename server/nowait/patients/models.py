@@ -11,7 +11,7 @@ class Hospitals(models.Model):
 	longitude = models.DecimalField(max_digits=50,decimal_places=10)
 
 	def __str__ (self):
-		return self.name
+		return "%s: %s" % (self.hospital_id, self.name)
 
 class Patients(models.Model):
 	patient_id = models.AutoField(primary_key=True)

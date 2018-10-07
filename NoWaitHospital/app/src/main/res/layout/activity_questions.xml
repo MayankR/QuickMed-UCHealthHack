@@ -23,27 +23,33 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
 
-    <TextView
-        android:id="@+id/question_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="25dp"
-        android:textSize="50dp"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:text="How are you feeling right now?"/>
+        <TextView
+            android:id="@+id/question_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="25dp"
+            android:textSize="50dp"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:text="How are you feeling right now?"/>
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/answer_ll"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_below="@+id/question_rl"
-        android:orientation="vertical">
+        android:layout_above="@+id/speech_ff"
+        android:layout_marginBottom="10dp">
+        <LinearLayout
+            android:id="@+id/answer_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -86,6 +92,7 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/speech_ff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

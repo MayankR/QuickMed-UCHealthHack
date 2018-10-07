@@ -121,14 +121,14 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
                     20,
                     r.getDisplayMetrics()
             );
-            int px25 = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    25,
-                    r.getDisplayMetrics()
-            );
+//            int px25 = (int) TypedValue.applyDimension(
+//                    TypedValue.COMPLEX_UNIT_DIP,
+//                    35,
+//                    r.getDisplayMetrics()
+//            );
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(px35, px20, px25, 0);
+            layoutParams.setMargins(px35, px20, px35, 0);
             answerLL.removeAllViews();
             answerLL.addView(child, layoutParams);
             answerET = (EditText)child;
