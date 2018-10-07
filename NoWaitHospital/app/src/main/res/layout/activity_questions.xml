@@ -7,6 +7,16 @@
     tools:context="edu.uchealth.healthhack.nowaithospital.QuestionsActivity"
     android:fitsSystemWindows="true"
     android:background="#289473">
+    <TextView
+        android:id="@+id/user_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name Name"
+        android:layout_alignParentRight="true"
+        android:textColor="#ffffff"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="18dp"/>
     <RelativeLayout
         android:id="@+id/question_rl"
         android:layout_width="match_parent"

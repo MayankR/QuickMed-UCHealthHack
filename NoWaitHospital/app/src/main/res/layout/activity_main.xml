@@ -4,14 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.uchealth.healthhack.nowaithospital.MainActivity">
+    tools:context="edu.uchealth.healthhack.nowaithospital.MainActivity"
+    android:background="#289473"
+    android:paddingLeft="35dp"
+    android:paddingRight="35dp">
+
+    <TextView
+        android:id="@+id/who_patient_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Who is the patient?"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="25dp"
+        android:textSize="50dp"
+        android:textColor="#ffffff"
+        android:textStyle="bold"/>
+    <ScrollView
+        android:layout_below="@+id/who_patient_tv"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/patient_d_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- Content here -->
+        </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/proceed_button"
-        android:layout_width="160dp"
+        android:layout_width="260dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Proceed"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:text="+ New Patient"
+        android:background="#ffffff"
+        android:textColor="#289473"
+        android:textSize="20dp"/>
 
 </RelativeLayout>
