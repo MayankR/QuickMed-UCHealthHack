@@ -56,7 +56,8 @@ public class QuestionBank {
         // --------------------------
         // Body Part Question
         // --------------------------
-        Question bodypart = new TextOnlyQuestion("Which body part did you injure?");
+        List<String> textOnlyAns = Arrays.asList("tp");
+        Question bodypart = new TextOnlyQuestion("Which body part did you injure?", textOnlyAns);
 
         // --------------------------
         // Photograph
@@ -85,7 +86,7 @@ public class QuestionBank {
         // --------------------------
         // Pregnancy Questions
         // --------------------------
-        Question pregDuration = new TextOnlyQuestion("How long have you been pregnant for?");
+        Question pregDuration = new TextOnlyQuestion("How long have you been pregnant for?", textOnlyAns);
 
         Question pregPain = new MCQQuestion("Are you in pain?", ansYesNo);
 
@@ -131,7 +132,7 @@ public class QuestionBank {
         Question fever = new MCQQuestion("Do you have fever", ansYesNo); // Don't know ....should be included
         Question stomachPain = new MCQQuestion(" Do you have stomach pain?", ansYesNo);
 
-        Question howlongago = new TextOnlyQuestion("How long ago?");
+        Question howlongago = new TextOnlyQuestion("How long ago?", textOnlyAns);
 
 
 
@@ -166,18 +167,18 @@ public class QuestionBank {
 
 
         nonICategory.addChildQuestion(1, breathing);
-            breathing.addChildQuestion(0, pulse);
-            breathing.addChildQuestion(1, pulse);
-                pulse.addChildQuestion(0, allergies);
-                pulse.addChildQuestion(1, allergies);
-                pulse.addChildQuestion(2, allergies);
-                pulse.addChildQuestion(3, allergies);
-                    allergies.addChildQuestion(0, asthma);
-                    allergies.addChildQuestion(1, asthma);
-                        asthma.addChildQuestion(0, smoke);
-                        asthma.addChildQuestion(1, smoke);
-                            smoke.addChildQuestion(0, pills);
-                            smoke.addChildQuestion(1, pills);
+            breathing.addChildQuestion(0, allergies);
+            breathing.addChildQuestion(1, allergies);
+                allergies.addChildQuestion(0, asthma);
+                allergies.addChildQuestion(1, asthma);
+                    asthma.addChildQuestion(0, smoke);
+                    asthma.addChildQuestion(1, smoke);
+                        smoke.addChildQuestion(0, pulse);
+                        smoke.addChildQuestion(1, pulse);
+                            pulse.addChildQuestion(0, pills);
+                            pulse.addChildQuestion(1, pills);
+                            pulse.addChildQuestion(2, pills);
+                            pulse.addChildQuestion(3, pills);
                                 pills.addChildQuestion(0, diabetic);
                                 pills.addChildQuestion(1, diabetic);
                                     diabetic.addChildQuestion(0, drink);
@@ -190,43 +191,43 @@ public class QuestionBank {
 
 
         nonICategory.addChildQuestion(2, heartAttack);
-            heartAttack.addChildQuestion(0, pulse);
-            heartAttack.addChildQuestion(1, pulse);
-                pulse.addChildQuestion(0, highBP);
-                pulse.addChildQuestion(1, highBP);
-                pulse.addChildQuestion(2, highBP);
-                pulse.addChildQuestion(3, highBP);
-                    highBP.addChildQuestion(0, pills);
-                    highBP.addChildQuestion(1, pills);
-                        pills.addChildQuestion(0, diabetic);
-                        pills.addChildQuestion(1, diabetic);
-                            diabetic.addChildQuestion(0, drink);
-                            diabetic.addChildQuestion(1, drink);
-                                drink.addChildQuestion(0, drugs);
-                                drink.addChildQuestion(1, drugs);
-                                    drugs.addChildQuestion(0, passout);
-                                    drugs.addChildQuestion(1, passout);
+            heartAttack.addChildQuestion(0, highBP);
+            heartAttack.addChildQuestion(1, highBP);
+                highBP.addChildQuestion(0, pulse);
+                highBP.addChildQuestion(1, pulse);
+//                    pulse.addChildQuestion(0, pills);
+//                    pulse.addChildQuestion(1, pills);
+//                    pulse.addChildQuestion(2, pills);
+//                    pulse.addChildQuestion(3, pills);
+//                        pills.addChildQuestion(0, diabetic);
+//                        pills.addChildQuestion(1, diabetic);
+//                            diabetic.addChildQuestion(0, drink);
+//                            diabetic.addChildQuestion(1, drink);
+//                                drink.addChildQuestion(0, drugs);
+//                                drink.addChildQuestion(1, drugs);
+//                                    drugs.addChildQuestion(0, passout);
+//                                    drugs.addChildQuestion(1, passout);
 
 
 
         nonICategory.addChildQuestion(3, stroke);
-            stroke.addChildQuestion(0, pulse);
-            stroke.addChildQuestion(1, pulse);
-                pulse.addChildQuestion(0, pills);
-                pulse.addChildQuestion(1, pills);
-                pulse.addChildQuestion(2, pills);
-                pulse.addChildQuestion(3, pills);
-                    pills.addChildQuestion(0, fall);
-                    pills.addChildQuestion(1, fall);
-                        fall.addChildQuestion(0, howlongago);
-                            howlongago.addChildQuestion(0, diabetic);
-                        fall.addChildQuestion(1, diabetic);
-                            diabetic.addChildQuestion(0, drink);
-                            diabetic.addChildQuestion(1, drink);
-                                drink.addChildQuestion(0, drugs);
-                                drink.addChildQuestion(1, drugs);
-                                    drugs.addChildQuestion(0, passout);
-                                    drugs.addChildQuestion(1, passout);
+            stroke.addChildQuestion(0, fall);
+            stroke.addChildQuestion(1, fall);
+                fall.addChildQuestion(0, howlongago);
+                    howlongago.addChildQuestion(0, pulse);
+                fall.addChildQuestion(1, pulse);
+//                    pulse.addChildQuestion(0, pills);
+//                    pulse.addChildQuestion(1, pills);
+//                    pulse.addChildQuestion(2, pills);
+//                    pulse.addChildQuestion(3, pills);
+//                        pills.addChildQuestion(0, diabetic);
+//                        pills.addChildQuestion(1, diabetic);
+//                            diabetic.addChildQuestion(0, drink);
+//                            diabetic.addChildQuestion(1, drink);
+//                                drink.addChildQuestion(0, drugs);
+//                                drink.addChildQuestion(1, drugs);
+//                                    drugs.addChildQuestion(0, passout);
+//                                    drugs.addChildQuestion(1, passout);
 
 
 
@@ -235,18 +236,20 @@ public class QuestionBank {
             fever.addChildQuestion(1, sweaty);
                 sweaty.addChildQuestion(0, pale);
                 sweaty.addChildQuestion(1, pale);
-                    pulse.addChildQuestion(0, pills);
-                    pulse.addChildQuestion(1, pills);
-                    pulse.addChildQuestion(2, pills);
-                    pulse.addChildQuestion(3, pills);
-                        pills.addChildQuestion(0, diabetic);
-                        pills.addChildQuestion(1, diabetic);
-                            diabetic.addChildQuestion(0, drink);
-                            diabetic.addChildQuestion(1, drink);
-                                drink.addChildQuestion(0, drugs);
-                                drink.addChildQuestion(1, drugs);
-                                    drugs.addChildQuestion(0, passout);
-                                    drugs.addChildQuestion(1, passout);
+                    pale.addChildQuestion(0, pulse);
+                    pale.addChildQuestion(1, pulse);
+//                        pulse.addChildQuestion(0, pills);
+//                        pulse.addChildQuestion(1, pills);
+//                        pulse.addChildQuestion(2, pills);
+//                        pulse.addChildQuestion(3, pills);
+//                            pills.addChildQuestion(0, diabetic);
+//                            pills.addChildQuestion(1, diabetic);
+//                                diabetic.addChildQuestion(0, drink);
+//                                diabetic.addChildQuestion(1, drink);
+//                                    drink.addChildQuestion(0, drugs);
+//                                    drink.addChildQuestion(1, drugs);
+//                                        drugs.addChildQuestion(0, passout);
+//                                        drugs.addChildQuestion(1, passout);
 
 
 
@@ -256,14 +259,14 @@ public class QuestionBank {
             vomit.addChildQuestion(1, stomachPain);
                 stomachPain.addChildQuestion(0, pills);
                 stomachPain.addChildQuestion(1, pills);
-                    pills.addChildQuestion(0, diabetic);
-                    pills.addChildQuestion(1, diabetic);
-                        diabetic.addChildQuestion(0, drink);
-                        diabetic.addChildQuestion(1, drink);
-                            drink.addChildQuestion(0, drugs);
-                            drink.addChildQuestion(1, drugs);
-                                drugs.addChildQuestion(0, passout);
-                                drugs.addChildQuestion(1, passout);
+//                    pills.addChildQuestion(0, diabetic);
+//                    pills.addChildQuestion(1, diabetic);
+//                        diabetic.addChildQuestion(0, drink);
+//                        diabetic.addChildQuestion(1, drink);
+//                            drink.addChildQuestion(0, drugs);
+//                            drink.addChildQuestion(1, drugs);
+//                                drugs.addChildQuestion(0, passout);
+//                                drugs.addChildQuestion(1, passout);
 
 
 

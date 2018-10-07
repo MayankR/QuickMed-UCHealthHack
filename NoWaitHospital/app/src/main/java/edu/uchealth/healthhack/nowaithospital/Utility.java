@@ -36,9 +36,12 @@ public class Utility {
 
     public static List<List<String>> getPeople() {
         Cursor cursor = db.rawQuery("select * from people;", null);
-        cursor.moveToFirst();
-        Log.d("Utility", "Moving to first patient");
         List<List<String>> patients = new ArrayList<>();
+        cursor.moveToFirst();
+        if(cursor.getCount() == 0) {
+            return patients;
+        }
+        Log.d("Utility", "Moving to first patient");
         do {
             Log.d("Utility", "Moving to next patient");
             String name = cursor.getString(1);

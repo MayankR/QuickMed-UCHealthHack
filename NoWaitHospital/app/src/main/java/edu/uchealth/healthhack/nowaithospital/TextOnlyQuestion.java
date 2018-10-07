@@ -9,10 +9,14 @@ import java.util.List;
 
 public class TextOnlyQuestion extends Question {
 
-    public TextOnlyQuestion(String q) {
+    public TextOnlyQuestion(String q, List<String> k) {
         this.questionStr = q;
-
         nextQuestions = new ArrayList<>();
+
+        for(int i=0;i<k.size();i++) {
+            List<Question> e = new ArrayList<>();
+            nextQuestions.add(e);
+        }
     }
 
     List<Integer> getKeyWordsFromResponse(String response) {
