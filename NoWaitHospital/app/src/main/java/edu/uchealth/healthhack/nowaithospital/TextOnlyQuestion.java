@@ -4,27 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by mayank on 06/10/18.
+ * Created by Akshansh on 06/10/18.
  */
 
-public class TextQuestion extends Question {
-    List<String> keywordsInjury;
-    List<String> keywordsNonInjury;
-    List<String> bodyParts;
-    List<String> keyPregnant;
+public class TextOnlyQuestion extends Question {
 
-    public TextQuestion(String q, List<String> k, List<String> n, List<String> b, List<String> p) {
+    public TextOnlyQuestion(String q) {
         this.questionStr = q;
-        this.keywordsInjury = k;
-        this.keywordsNonInjury = n;
-        this.bodyParts = b;
-        this.keyPregnant = p;
-        nextQuestions = new ArrayList<>();
 
-        for(int i=0;i<k.size();i++) {
-            List<Question> e = new ArrayList<>();
-            nextQuestions.add(e);
-        }
+        nextQuestions = new ArrayList<>();
     }
 
     List<Integer> getKeyWordsFromResponse(String response) {
@@ -34,12 +22,8 @@ public class TextQuestion extends Question {
     }
 
     public List<Question> getNextQuestions(String response) {
-
-
         List<Integer> keywordsIndexes = getKeyWordsFromResponse(response);
         List<Question> allNext = new ArrayList<>();
-
-
         for(int i=0;i<keywordsIndexes.size();i++) {
             allNext.addAll(nextQuestions.get(keywordsIndexes.get(i)));
         }
