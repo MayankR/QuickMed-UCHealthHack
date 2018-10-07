@@ -6,6 +6,7 @@
     android:textSize="35dp"
     android:background="#289473"
     android:textColor="#ffffff"
-    android:textColorHint="#7bffd7">
+    android:textColorHint="#7bffd7"
+    android:imeOptions="actionDone">
 
 </EditText>
