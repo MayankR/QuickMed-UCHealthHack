@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
 
+import static edu.uchealth.healthhack.nowaithospital.PatientData.pData;
+
 /**
  * Created by mayank on 06/10/18.
  */
@@ -43,6 +45,8 @@ public class MCQQuestion extends Question {
 
 
     public List<Question> getNextQuestions(String response) {
+
+        pData.put(questionStr, response);
         int keywordsIndex = getOptionFromResponse(response);
         return getNextQuestions(keywordsIndex);
     }
