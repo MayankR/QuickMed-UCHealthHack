@@ -122,7 +122,11 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
                 child.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        allAns.add("optionID");
+                        if(curQuestionIndex == allAns.size()-1) {
+                            allAns.set(allAns.size()-1, "" + optionID);
+                        } else {
+                            allAns.add("" + optionID);
+                        }
                         clickedOption(optionID);
                     }
                 });
@@ -144,11 +148,6 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
                     20,
                     r.getDisplayMetrics()
             );
-//            int px25 = (int) TypedValue.applyDimension(
-//                    TypedValue.COMPLEX_UNIT_DIP,
-//                    35,
-//                    r.getDisplayMetrics()
-//            );
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.setMargins(px35, px20, px35, 0);
@@ -327,7 +326,11 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
     }
 
     void registerResponse() {
-        allAns.add(answerET.getText().toString().trim());
+        if(curQuestionIndex == allAns.size()-1) {
+            allAns.set(allAns.size()-1, answerET.getText().toString().trim());
+        } else {
+            allAns.add(answerET.getText().toString().trim());
+        }
         allQuestions.addAll(curQuestion.getNextQuestions(answerET.getText().toString().trim()));
         goToNextQuestion();
     }
@@ -336,7 +339,11 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
         if(curQuestion.getClass().getSimpleName().equals("TextQuestion")) {
             answerET.setText(s);
         }
-        allAns.add(s);
+        if(curQuestionIndex == allAns.size()-1) {
+            allAns.set(allAns.size()-1, s);
+        } else {
+            allAns.add(s);
+        }
         allQuestions.addAll(curQuestion.getNextQuestions(s));
         goToNextQuestion();
     }
