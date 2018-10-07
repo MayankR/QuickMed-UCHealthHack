@@ -3,6 +3,8 @@ package edu.uchealth.healthhack.nowaithospital;
 import java.util.ArrayList;
 import java.util.List;
 
+import static edu.uchealth.healthhack.nowaithospital.PatientData.pData;
+
 /**
  * Created by mayank on 06/10/18.
  */
@@ -35,7 +37,9 @@ public class TextQuestion extends Question {
 
     public List<Question> getNextQuestions(String response) {
 
+//        pData.put(questionStr, response);
 
+        PatientData.mainProblem = response;
         List<Integer> keywordsIndexes = getKeyWordsFromResponse(response);
         List<Question> allNext = new ArrayList<>();
 
