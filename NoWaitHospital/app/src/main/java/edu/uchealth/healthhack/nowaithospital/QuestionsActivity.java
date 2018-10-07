@@ -3,8 +3,13 @@ package edu.uchealth.healthhack.nowaithospital;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,13 +29,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-public class QuestionsActivity extends AppCompatActivity implements View.OnClickListener {
+public class QuestionsActivity extends AppCompatActivity implements View.OnClickListener, TextToSpeech.OnInitListener {
     QuestionBank qb;
     Question curQuestion;
     List<Question> allQuestions;
+    List<String> allAns;
     int curQuestionIndex;
     FloatingActionButton nine11FAB, nextFAB, speechFAB;
     TextView questionTV, patientNameTV;
@@ -40,7 +51,10 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
     float x1, x2;
     final int SWIPE_THRESHOLD = 300;
     private final int REQUEST_SPEECH_RECOGNIZER = 3000;
+    static final int REQUEST_IMAGE_CAPTURE = 101;
+    String mCurrentPhotoPath;
 
+    TextToSpeech myTTS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +63,8 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         setContentView(R.layout.activity_questions);
+
+        myTTS = new TextToSpeech(this, this);
 
         qb = new QuestionBank();
         curQuestion = qb.getRoot();
@@ -65,11 +81,13 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
         patientNameTV = (TextView) findViewById(R.id.user_name_tv);
         patientNameTV.setText(PatientData.name);
 
+
         answerLL = (LinearLayout) findViewById(R.id.answer_ll);
 
         allQuestions = new ArrayList<>();
         allQuestions.add(curQuestion);
         curQuestionIndex = 0;
+        allAns = new ArrayList<>();
 
         renderScreen();
     }
@@ -104,6 +122,7 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
                 child.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        allAns.add("optionID");
                         clickedOption(optionID);
                     }
                 });
@@ -183,11 +202,51 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
 
                 }
             });
+            if(curQuestionIndex < allAns.size()) {
+                answerET.setText(allAns.get(curQuestionIndex));
+            }
             answerLL.addView(answerET, layoutParams);
 
             nextFAB.setVisibility(View.VISIBLE);
         }
         speakOutQuestion();
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.example.android.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
     }
 
     @Override
@@ -210,13 +269,20 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
         return super.onTouchEvent(event);
     }
 
+    boolean backIgnore = true;
     @Override
     public void onBackPressed() {
         if(curQuestionIndex == 0) {
+            if(backIgnore) {
+                backIgnore = false;
+                return;
+            }
             Intent it = new Intent(this, MainActivity.class);
             startActivity(it);
             finish();
+            backIgnore = true;
         }
+        backIgnore = true;
         goToPrevQuestion();
     }
 
@@ -228,6 +294,9 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
         curQuestion = allQuestions.get(curQuestionIndex);
         for(int i=allQuestions.size()-1;i>curQuestionIndex;i--) {
             allQuestions.remove(i);
+        }
+        for(int i=allAns.size()-1;i>curQuestionIndex;i--) {
+            allAns.remove(i);
         }
         renderScreen();
     }
@@ -253,12 +322,12 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-    // TODO
     void speakOutQuestion() {
-
+        myTTS.speak(curQuestion.getQuestion(), TextToSpeech.QUEUE_FLUSH, null, "messageID");
     }
 
     void registerResponse() {
+        allAns.add(answerET.getText().toString().trim());
         allQuestions.addAll(curQuestion.getNextQuestions(answerET.getText().toString().trim()));
         goToNextQuestion();
     }
@@ -267,6 +336,7 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
         if(curQuestion.getClass().getSimpleName().equals("TextQuestion")) {
             answerET.setText(s);
         }
+        allAns.add(s);
         allQuestions.addAll(curQuestion.getNextQuestions(s));
         goToNextQuestion();
     }
@@ -314,6 +384,30 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
             case R.id.speech_fab:
                 startSpeechRecognizer();
                 break;
+        }
+    }
+
+    @Override
+    public void onInit(int status) {
+        if (status == TextToSpeech.SUCCESS) {
+//            myTTS.setLanguage(new Locale("hi"));
+            myTTS.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+                @Override
+                public void onDone(String utteranceId) {
+                    Log.d("QA", "TTS complete");
+                }
+
+                @Override
+                public void onError(String utteranceId) {
+                }
+
+                @Override
+                public void onStart(String utteranceId) {
+                    Log.d("QA", "TTS start");
+                }
+            });
+        } else if (status == TextToSpeech.ERROR) {
+            Toast.makeText(this, "Sorry! Text To Speech failed...", Toast.LENGTH_LONG).show();
         }
     }
 }
