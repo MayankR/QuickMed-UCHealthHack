@@ -1,10 +1,12 @@
 package edu.uchealth.healthhack.nowaithospital;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
+import java.util.regex.Pattern;
 
 import static edu.uchealth.healthhack.nowaithospital.PatientData.pData;
 
@@ -39,7 +41,21 @@ public class MCQQuestion extends Question {
 
     // TODO
     int getOptionFromResponse(String response) {
-        return 0;
+        String[] parts;
+        if(response.contains(" ")) {
+            parts = response.split(Pattern.quote(" "));
+        } else {
+            parts = new String[] {response};
+        }
+        int minDist = 1000000, minInd=0;
+        for(int i=0;i<answers.size();i++) {
+            int yoDist = Utility.minDistance(response, answers.get(i));
+            if(yoDist < minDist) {
+                minDist = yoDist;
+                minInd = i;
+            }
+        }
+        return minInd;
     }
 
 

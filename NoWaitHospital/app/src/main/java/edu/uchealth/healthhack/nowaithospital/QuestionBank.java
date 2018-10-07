@@ -66,8 +66,8 @@ public class QuestionBank {
         // --------------------------
         // Photograph
         // --------------------------
-        List<String> picCategory = Arrays.asList("Click picture", "Upload from device", "Click more pictures ....");
-        Question photograph = new MCQQuestion("Please can you send a pic of your injury?", picCategory);
+        List<String> picCategory = Arrays.asList("Click picture", "Upload from device", "Click more pictures...");
+        Question photograph = new MCQQuestion("Please share a pic of your injury?", picCategory);
 
 
 
